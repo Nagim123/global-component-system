@@ -1,0 +1,20 @@
+    private static {{ CLASS_TYPE }} {{ LOWERCASE_NAME }};
+    public static {{ CLASS_TYPE }} {{ CLASS_TYPE }}
+    {
+        get
+        {
+            if ({{ LOWERCASE_NAME }} != null)
+                return {{ LOWERCASE_NAME }};
+
+            {{ CLASS_TYPE }}[] candidates =
+                Object.FindObjectsByType<{{ CLASS_TYPE }}>(FindObjectsSortMode.InstanceID);
+
+            if (candidates.Length > 1)
+                throw new System.Exception("More than one object with {{ CLASS_TYPE }} component is on the scene!");
+            else if (candidates.Length == 0)
+                throw new System.Exception("No object with component {{ CLASS_TYPE }} is found!");
+
+            {{ LOWERCASE_NAME }} = candidates[0];
+            return candidates[0];
+        }
+    }

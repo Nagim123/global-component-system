@@ -1,0 +1,42 @@
+private static {{ CLASS_TYPE }}[] {{ LOWERCASE_NAME }};
+
+public static {{ CLASS_TYPE }}[] {{ CLASS_TYPE }}_list
+{
+    get
+    {
+        if ({{ LOWERCASE_NAME }} != null)
+        {
+            int validCount = 0;
+
+            for (int i = 0; i < {{ LOWERCASE_NAME }}.Length; i++)
+            {
+                if ({{ LOWERCASE_NAME }}[i] != null)
+                    validCount++;
+            }
+
+            if (validCount > 0)
+            {
+                if (validCount == {{ LOWERCASE_NAME }}.Length)
+                    return {{ LOWERCASE_NAME }};
+
+                var cleaned = new {{ CLASS_TYPE }}[validCount];
+                int index = 0;
+
+                for (int i = 0; i < {{ LOWERCASE_NAME }}.Length; i++)
+                {
+                    if ({{ LOWERCASE_NAME }}[i] != null)
+                        cleaned[index++] = {{ LOWERCASE_NAME }}[i];
+                }
+
+                {{ LOWERCASE_NAME }} = cleaned;
+                return {{ LOWERCASE_NAME }};
+            }
+        }
+
+        {{ CLASS_TYPE }}[] candidates =
+            Object.FindObjectsByType<{{ CLASS_TYPE }}>(FindObjectsSortMode.InstanceID);
+
+        {{ LOWERCASE_NAME }} = candidates;
+        return candidates;
+    }
+}
